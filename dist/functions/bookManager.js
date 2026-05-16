@@ -1,32 +1,27 @@
+'use strict';
 // Tugas 3: Implementasikan fungsi-fungsi manajemen buku
-
-// Fungsi addBook
-// Fungsi ini digunakan untuk menambahkan buku baru ke dalam koleksi
-// Parameter yang dibutuhkan: data buku sesuai tipe Book
-// Fungsi ini tidak mengembalikan nilai (void)
-// Petunjuk: pikirkan bagaimana cara menambahkan buku ke array yang sudah disediakan
-
-import type { Book } from '../types';
-import { books } from '../data/books';
-
-export function addBook(book: Book): void {
-  books.push(book);
+Object.defineProperty(exports, '__esModule', { value: true });
+exports.addBook = addBook;
+exports.listBooks = listBooks;
+exports.searchBook = searchBook;
+const books_1 = require('../data/books');
+function addBook(book) {
+  books_1.books.push(book);
   console.log(`Book "${book.title}" was added to the collection.`);
 }
-
 // Fungsi listBooks
 // Fungsi ini digunakan untuk menampilkan semua buku yang tersimpan
 // Tidak memerlukan parameter
 // Fungsi ini tidak mengembalikan nilai (void)
 // Petunjuk: pikirkan cara menampilkan data buku dengan format yang mudah dibaca
-export function listBooks(): void {
-  if (books.length === 0) {
+
+function listBooks() {
+  if (books_1.books.length === 0) {
     console.log('No books in the collection yet.');
     return;
   }
-
   console.log('--- All books ---');
-  books.forEach((book, index) => {
+  books_1.books.forEach((book, index) => {
     console.log(
       `${index + 1}. "${book.title}" by ${book.author} (${book.publicationYear})`
     );
@@ -37,23 +32,20 @@ export function listBooks(): void {
 // Parameter title bersifat opsional (bisa ada atau tidak)
 // Fungsi ini tidak mengembalikan nilai (void)
 // Petunjuk: jika parameter title diberikan, cari buku yang cocok
-//           jika tidak diberikan, tampilkan semua buku atau berikan informasi yang sesuai
-export function searchBook(title?: string): void {
+// jika tidak diberikan, tampilkan semua buku atau berikan informasi yang sesuai
+function searchBook(title) {
   if (title === undefined) {
     listBooks();
     return;
   }
-
   const keyword = title.toLowerCase();
-  const matches = books.filter((book) =>
+  const matches = books_1.books.filter((book) =>
     book.title.toLowerCase().includes(keyword)
   );
-
   if (matches.length === 0) {
     console.log(`No books whose title contains "${title}".`);
     return;
   }
-
   console.log(`--- Search results for "${title}" ---`);
   matches.forEach((book, index) => {
     console.log(

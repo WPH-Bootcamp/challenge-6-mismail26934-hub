@@ -24,27 +24,27 @@ function parsePublicationYear(raw: string): number | null {
 }
 
 async function promptPublicationYear(rl: ReadlineInterface): Promise<number> {
-  const raw = (await rl.question('Tahun terbit: ')).trim();
+  const raw = (await rl.question('Publication year: ')).trim();
   const year = parsePublicationYear(raw);
   if (year === null) {
-    console.log('Tahun tidak valid, masukkan bilangan bulat.');
+    console.log('Invalid year; enter a whole number.');
     return promptPublicationYear(rl);
   }
   return year;
 }
 
 async function promptAddBookFromCli(rl: ReadlineInterface): Promise<void> {
-  console.log('\n--- Tambah buku ---\n');
+  console.log('\n--- Add book ---\n');
 
   while (true) {
-    const title = (await rl.question('Judul: ')).trim();
+    const title = (await rl.question('Title: ')).trim();
     if (!title) {
-      console.log('Judul tidak boleh kosong.\n');
+      console.log('Title cannot be empty..\n');
       continue;
     }
-    const author = (await rl.question('Penulis: ')).trim();
+    const author = (await rl.question('Author: ')).trim();
     if (!author) {
-      console.log('Penulis tidak boleh kosong.\n');
+      console.log('Author cannot be empty.\n');
       continue;
     }
 
@@ -58,13 +58,13 @@ async function promptAddBookFromCli(rl: ReadlineInterface): Promise<void> {
 async function promptListAndSearchFromCli(
   rl: ReadlineInterface
 ): Promise<void> {
-  console.log('\n--- Tampilkan buku ---\n');
+  console.log('\n--- List books ---\n');
   listBooks();
 
-  console.log('\n--- Cari buku (input CLI) ---\n');
+  console.log('\n--- Search books (CLI input) ---\n');
   const keyword = (
     await rl.question(
-      'Kata kunci judul (kosongkan lalu Enter untuk menampilkan semua buku): '
+      'Title keyword (leave blank and press Enter to show all books): '
     )
   ).trim();
 
@@ -80,19 +80,19 @@ async function readMainMenuChoice(
 ): Promise<'1' | '2' | '0'> {
   while (true) {
     console.log('\n========== Menu ==========');
-    console.log('1. Tambah buku');
-    console.log('2. Tampilkan buku dan cari buku');
-    console.log('0. Keluar');
-    const raw = (await rl.question('Pilih menu (0–2): ')).trim();
+    console.log('1. Add book');
+    console.log('2. List and search books');
+    console.log('0. Exit');
+    const raw = (await rl.question('Choose menu (0–2): ')).trim();
     if (raw === '1' || raw === '2' || raw === '0') {
       return raw;
     }
-    console.log('Pilihan tidak valid. Masukkan 0, 1, atau 2.');
+    console.log('Invalid choice. Enter 0, 1, atau 2.');
   }
 }
 
 async function confirmExit(rl: ReadlineInterface): Promise<boolean> {
-  const ans = (await rl.question('\nApakah Anda yakin ingin keluar? (y/n): '))
+  const ans = (await rl.question('\nAre you sure you want to exit ? (y/n): '))
     .trim()
     .toLowerCase();
   return ans === 'y' || ans === 'ya' || ans === 'yes';
@@ -107,10 +107,10 @@ async function main(): Promise<void> {
 
       if (menu === '0') {
         if (await confirmExit(rl)) {
-          console.log('\nTerima kasih');
+          console.log('\nThank you');
           break;
         }
-        console.log('Kembali ke Menu.');
+        console.log('Back to menu.');
         continue;
       }
 
