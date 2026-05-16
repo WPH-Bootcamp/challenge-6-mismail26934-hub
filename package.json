@@ -9,6 +9,7 @@
     "dev": "npm run build && npm start"
   },
   "devDependencies": {
+    "@types/node": "^25.8.0",
     "typescript": "^5.0.0"
   }
 }
